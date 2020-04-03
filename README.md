@@ -15,6 +15,7 @@ This Api will organize all the cats and dogs in an animal shelter.
 * API allows the client to retrieve information on specific animals.
 * API allows the client to update information on specific animals.
 * API allows the client to delete an animal's information once they have been adopted.
+* API allows for specific query strings to return animals based on a species parameters.
 
 * For full API endpoint documentation please click [here](https://app.swaggerhub.com/apis/PRKille/animal-shelter_api/v1)
 
@@ -89,12 +90,13 @@ _To view/edit the source code of this application, open the contents of the Anim
 * ASP.NET Core MVC 2.2
 * dotnet script
 * Entity Framework Core 2.2
-* Identity
-* Razor
-* MySQL + MySQL Workbench version 8.0.15
+* MySQL
 * Git
-* HTML
-* CSS
+
+### New Features/Further Exploration
+* Swagger documentation created with Swashbuckle
+* JWT Authorization
+* API Versioning now supported (current version: 1.0)
 
 ## License
 
