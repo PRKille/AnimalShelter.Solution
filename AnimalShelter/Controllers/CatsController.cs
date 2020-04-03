@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnimalShelter.Models;
@@ -19,15 +17,8 @@ namespace AnimalShelter.Controllers
     {
       _db = db;
     }
-    // GET api/Cats
+    // GET api/cats
     [HttpGet]
-    public ActionResult<IEnumerable<Cat>> Get()
-    {
-        return _db.Cats.ToList();
-    }
-
-    // GET api/Cats/5
-    [HttpGet("{id}")]
     public ActionResult<IEnumerable<Cat>> Get(string name, string breed, int? age, string gender)
     {
       var query = _db.Cats.AsQueryable();
@@ -51,7 +42,14 @@ namespace AnimalShelter.Controllers
       return query.ToList();
     }
 
-    // POST api/Cats
+    // GET api/cats/5
+    [HttpGet("{id}")]
+    public ActionResult<Cat> Get(int id)
+    {
+      return _db.Cats.FirstOrDefault(kitty => kitty.CatId == id);
+    }
+
+    // POST api/cats
     [HttpPost]
     public void Post([FromBody] Cat cat)
     {
@@ -59,7 +57,7 @@ namespace AnimalShelter.Controllers
       _db.SaveChanges();
     }
 
-    // PUT api/Cats/5
+    // PUT api/cats/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] Cat cat)
     {
@@ -68,7 +66,7 @@ namespace AnimalShelter.Controllers
       _db.SaveChanges();
     }
 
-    // DELETE api/Cats/5
+    // DELETE api/cats/5
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
