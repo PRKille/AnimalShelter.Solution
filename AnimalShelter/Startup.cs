@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using AnimalShelter.Models;
 
 namespace AnimalShelter
@@ -29,6 +30,11 @@ namespace AnimalShelter
       services.AddDbContext<AnimalShelterContext>(opt =>
         opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+      services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "AnimalShelter API", Version = "v1" });
+    });
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -41,6 +47,12 @@ namespace AnimalShelter
       {
         app.UseHsts();
       }
+
+      app.UseSwagger();
+      app.UseSwaggerUI(c=>
+      {
+        c.SwaggerEndpoint("swagger/v1/swagger.json", "AnimalShelter API v1");
+      });
 
       app.UseMvc();
     }
