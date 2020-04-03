@@ -44,6 +44,7 @@ namespace AnimalShelter.Controllers
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] Dog dog)
     {
+      dog.DogId = id;
       _db.Entry(dog).State = EntityState.Modified;
       _db.SaveChanges();
     }
