@@ -10,7 +10,13 @@ This Api will organize all the cats and dogs in an animal shelter.
 
 ## Specifications:
 
+* API allows the client to create new animals.
+* API allows the client to retrieve information on the animals.
+* API allows the client to retrieve information on specific animals.
+* API allows the client to update information on specific animals.
+* API allows the client to delete an animal's information once they have been adopted.
 
+* For full API endpoint documentation please click [here](https://app.swaggerhub.com/apis/PRKille/animal-shelter_api/v1)
 
 ## Setup/Installation Requirements
 
