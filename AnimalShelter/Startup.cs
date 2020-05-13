@@ -8,9 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using AnimalShelter.Models;
+using AnimalShelter.Models; 
 using AnimalShelter.Helpers;
 using AnimalShelter.Services;
+using System.Reflection;
+
+// Patrick was here
 
 namespace AnimalShelter
 {
@@ -25,8 +28,26 @@ namespace AnimalShelter
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<AnimalShelterContext>(opt =>
-        opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+      services.AddCors(options => 
+      {
+        options.AddPolicy("MyPolicy",
+          builder => 
+          {
+              builder.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowAnyOrigin()
+              .AllowCredentials();
+          });
+      });
+
+      // services.AddDbContext<AnimalShelterContext>(opt =>
+      //   opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+      var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+      services.AddEntityFrameworkNpgsql().AddDbContext<AnimalShelterContext>(builder =>
+                builder.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"], sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
+
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
       var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -78,6 +99,7 @@ namespace AnimalShelter
         app.UseHsts();
       }
 
+      app.UseCors("MyPolicy");
       app.UseSwagger();
       app.UseSwaggerUI(c=>
       {

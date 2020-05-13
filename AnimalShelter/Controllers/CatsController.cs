@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnimalShelter.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace AnimalShelter.Controllers
 {
@@ -50,6 +51,7 @@ namespace AnimalShelter.Controllers
     }
 
     // POST api/cats
+    [EnableCors("MyPolicy")]
     [HttpPost]
     public void Post([FromBody] Cat cat)
     {
